@@ -67,15 +67,8 @@ def get_whether_query(column):
     queries.append(query)
 
 
-if __name__ == "__main__":
-    global queries
+def main():
     global filename
-    queries = []
-    print("쿼리 생성기를 실행합니다.")
-    sleep(0.5)
-    print("입력을 마치려면 ctrl+c를 눌러주세요.")
-    print("=========================================")
-    sleep(1)
     # 파일 이름: 한번만 입력
     print("파일 이름을 입력하세요...")
     try:
@@ -118,9 +111,25 @@ if __name__ == "__main__":
     except KeyboardInterrupt:
         print("==========================================")
         print("프로그램을 종료합니다.")
-    # print(queries)
+    # return filename
+
+
+def make_txt(filename):
     txt_filename = '{} SQL 쿼리.txt'.format(filename)
     f = open(txt_filename, 'w')
     for query in queries:
         f.write(query+"\n")
     f.close()
+
+
+if __name__ == "__main__":
+    global queries
+
+    queries = []
+    print("쿼리 생성기를 실행합니다.")
+    sleep(0.5)
+    print("입력을 마치려면 ctrl+c를 눌러주세요.")
+    print("=========================================")
+    sleep(1)
+    main()
+    make_txt(filename)
