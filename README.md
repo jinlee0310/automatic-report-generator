@@ -6,11 +6,9 @@
 
 - python3.6 이상 사용
 - git 설치가 필요합니다.
-<hr>
-- 깃과 파이썬이 뭔지 안다-><a href="https://github.com/hyojinLee-git/automatic-report-generator#how-to-use">여기</a>
-- 깃과 파이썬이 뭔지 모른다-><a href="./#setting">여기</a>
 
-##
+- 깃과 파이썬이 뭔지 안다-><a href="https://github.com/hyojinLee-git/automatic-report-generator#how-to-use">여기</a>
+- 깃과 파이썬이 뭔지 모른다-><a href="https://github.com/hyojinLee-git/automatic-report-generator#setting">여기</a>
 
 ## Setting
 
@@ -35,8 +33,8 @@ cd/Desktop/foldername
 
 ```shell
 git init #.git 폴더 생성
-git remote add origin https://github.com/hyojinLee-git/automatic-report-generator.git
-git pull origin main
+git remote add origin https://github.com/hyojinLee-git/automatic-report-generator.git #원격 저장소 연결
+git pull origin main #파일 다운로드
 ```
 
 4. 정상적으로 완료되었다면 폴더에 automatic-report-generator가 설치되어 있습니다.
@@ -84,10 +82,12 @@ python report_generator.py #보고서 생성기 실행
 
 8. 보고서 샘플 중 업무 규칙을 입력합니다.
 
-### Run
+## Run
 
 ```shell
 pip install -r requirements
 python query_generator.py #쿼리 생성기 실행
 python report_generator.py #보고서 생성기 실행
 ```
+
+## Error

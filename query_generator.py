@@ -31,6 +31,7 @@ def get_date_query(column, form):
     elif form == "MM-DD":
         query = "SELECT {} FROM C##OPENDATA.{} WHERE {}<>0 AND NOT REGEXP_LIKE({},'^(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[0-1])$');".format(
             column, filename, '"index"', column)
+
     return query
 
 
@@ -79,6 +80,12 @@ def get_whether_query(column):
 def get_zip_code_query(column):
     query = "SELECT {} FROM C##OPENDATA.{} WHERE {}<>0 AND NOT REGEXP_LIKE({},'^[0-9]{}$');".format(
         column, filename, '"index"', column, 5)
+    return query
+
+
+def get_alpha_query(column):
+    query = "SELECT {} FROM C##OPENDATA.{} WHERE {}<>0 AND NOT REGEXP_LIKE({},'[[:alpha:]]');".format(
+        column, filename, '"index"', column)
     return query
 
 
@@ -131,6 +138,8 @@ def query_generator():
                         query = get_whether_query(column)
                     elif data_type == "우편번호" or data_type == "우편 번호":
                         query = get_zip_code_query(column)
+                    elif data_type == "영문명":
+                        query = get_alpha_query(column)
                     else:
                         print("지정된 데이터 타입이 아닙니다.")
                     try:
