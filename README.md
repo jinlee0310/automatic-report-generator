@@ -7,8 +7,8 @@
 - python3.6 이상 사용
 - git 설치가 필요합니다.
 <hr>
-- 깃과 파이썬이 뭔지 안다.<a href="https://github.com/hyojinLee-git/automatic-report-generator#how-to-use">여기</a>
-- 깃과 파이썬이 뭔지 모른다.
+- 깃과 파이썬이 뭔지 안다-><a href="https://github.com/hyojinLee-git/automatic-report-generator#how-to-use">여기</a>
+- 깃과 파이썬이 뭔지 모른다-><a href="./#setting">여기</a>
 
 ##
 
