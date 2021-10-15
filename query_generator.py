@@ -89,9 +89,13 @@ def query_generator():
     print("파일 이름을 입력하세요...")
     try:
         filename = input()
+    except KeyboardInterrupt:
+        print("==========================================")
+        print("프로그램을 종료합니다.")
     # 잘못 입력한 경우
     except:
         print("잘못 입력")
+
     try:
         while True:
             #컬럼, 데이터타입

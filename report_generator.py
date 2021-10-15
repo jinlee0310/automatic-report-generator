@@ -1,13 +1,7 @@
 import openpyxl
-from openpyxl import styles
 from query_generator import query_generator, make_txt
-from openpyxl.styles import Font, PatternFill, Alignment, alignment
-
-
-wb = openpyxl.load_workbook('F100002645_SQL진단결과보고서.xlsx')
-sheet1 = wb.active
-print(sheet1)
-col = sheet1['F']  # 값이 있는 것만 가져옴
+from openpyxl.styles import Font, PatternFill, Alignment
+from time import sleep
 
 
 def create_sheet_contents(sheet, file_name, title, sheet_name, column_name, query):
@@ -41,7 +35,7 @@ def create_sheet_contents(sheet, file_name, title, sheet_name, column_name, quer
 
 def create_sheet(filename, queries):
     index = -1
-    for c in range(1, len(col)-1):
+    for c in range(2, len(col)+1):
         if sheet1.cell(row=c, column=6).value == 'Y':
             index += 1
             sheet_name = sheet1.cell(row=c, column=4).value
@@ -56,12 +50,18 @@ def create_sheet(filename, queries):
 if __name__ == "__main__":
     print("보고서 생성기를 실행합니다...")
     queries, filename = query_generator()
-
+    xlsx_name = '{}_SQL진단결과보고서.xlsx'.format(filename)
+    # 이름 틀릴 경우
+    wb = openpyxl.load_workbook(xlsx_name)
+    sheet1 = wb.active
+    print(sheet1)
+    col = sheet1['F']  # 값이 있는 것만 가져옴
     print("생성된 쿼리를 저장하시겠습니까? y/n")
     answer = input()
     if answer == "y" or answer == "Y":
         make_txt(filename)
     create_sheet(filename, queries)
-
-    wb.save('F100002645_SQL진단결과보고서.xlsx')
+    # save실패할 경우
+    wb.save(xlsx_name)
+    sleep(0.5)
     print("보고서가 저장되었습니다.")
