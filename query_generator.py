@@ -1,4 +1,5 @@
 from time import sleep
+import re
 
 
 def get_number_query(column):
@@ -84,13 +85,12 @@ def get_zip_code_query(column):
 def get_filename():
     global filename
     global queries
-    queries = []
+    queries = {}
     print("입력을 마치려면 ctrl+c를 눌러주세요.")
     print("=========================================")
     sleep(1)
     # 파일 이름: 한번만 입력
     print("파일 이름을 입력하세요...")
-
     try:
         filename = input()
     except KeyboardInterrupt:
@@ -98,7 +98,7 @@ def get_filename():
         print("프로그램을 종료합니다.")
     # 잘못 입력한 경우
     except:
-        print("잘못 입력")
+        print("파일 형식이 잘못되었습니다.")
     return filename
 
 
@@ -106,37 +106,45 @@ def query_generator():
     try:
         while True:
             #컬럼, 데이터타입
-            print("컬럼과 데이터 타입을 입력하세요.")
+            print("컬럼과 데이터 타입을 입력하세요...")
             try:
+                reg = re.compile('^(c|C)[0-9]+$')
                 column, data_type = input().split()
-                if data_type == "숫자":
-                    query = get_number_query(column)
-                elif data_type == "날짜":
-                    print("형식을 입력해주세요.")
-                    form = input()
-                    query = get_date_query(column, form)
-                elif data_type == "금액":
-                    query = get_price_query(column)
-                elif data_type == "율":
-                    query = get_percent_query(column)
-                elif data_type == "전화번호" or data_type == "전화 번호":
-                    query = get_phone_number_query(column)
-                elif data_type == "사업자번호" or data_type == "사업자 번호":
-                    query = get_business_number_query(column)
-                elif data_type == "이메일":
-                    query = get_email_query(column)
-                elif data_type == "여부":
-                    query = get_whether_query(column)
-                elif data_type == "우편번호" or data_type == "우편 번호":
-                    query = get_zip_code_query(column)
+                if reg.match(column):
+                    if data_type == "숫자":
+                        query = get_number_query(column)
+                    elif data_type == "날짜":
+                        print("형식을 입력해주세요...")
+                        form = input()
+                        query = get_date_query(column, form)
+                    elif data_type == "금액":
+                        query = get_price_query(column)
+                    elif data_type == "율":
+                        query = get_percent_query(column)
+                    elif data_type == "전화번호" or data_type == "전화 번호":
+                        query = get_phone_number_query(column)
+                    elif data_type == "사업자번호" or data_type == "사업자 번호":
+                        query = get_business_number_query(column)
+                    elif data_type == "이메일":
+                        query = get_email_query(column)
+                    elif data_type == "여부":
+                        query = get_whether_query(column)
+                    elif data_type == "우편번호" or data_type == "우편 번호":
+                        query = get_zip_code_query(column)
+                    else:
+                        print("지정된 데이터 타입이 아닙니다.")
+                    try:
+                        queries[column] = query
+                    except UnboundLocalError:
+                        pass
                 else:
-                    print("지정된 데이터 타입이 아닙니다.")
+                    print("컬럼 형식이 잘못되었습니다.")
             # 잘못 입력한 경우
             except TypeError:
                 print("데이터 타입을 입력하지 않았습니다.")
             except ValueError:
-                print("컬럼을 입력하지 않았습니다.")
-            queries.append(query)
+                print("컬럼 또는 데이터 타입을 입력하지 않았습니다.")
+
     except KeyboardInterrupt:
         print("==========================================")
         print("입력을 종료합니다.")
@@ -146,7 +154,7 @@ def query_generator():
 def make_txt(filename):
     txt_filename = '{} SQL 쿼리.txt'.format(filename)
     f = open(txt_filename, 'w')
-    for query in queries:
+    for query in queries.values():
         f.write(query+"\n")
     f.close()
     sleep(0.5)

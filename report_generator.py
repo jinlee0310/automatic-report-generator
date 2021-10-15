@@ -33,17 +33,18 @@ def create_sheet_contents(sheet, file_name, title, sheet_name, column_name, quer
 
 
 def create_sheet(filename, queries):
-    index = -1
     for c in range(2, len(col)+1):
         if sheet1.cell(row=c, column=6).value == 'Y':
-            index += 1
-            sheet_name = sheet1.cell(row=c, column=4).value
-            sheet = wb.create_sheet(sheet_name)
-            title = sheet1.cell(row=c, column=3).value
-            column_name = sheet1.cell(row=c, column=5).value
-            query = queries[index]
-            create_sheet_contents(sheet, filename, title,
-                                  sheet_name, column_name, query)
+            try:
+                sheet_name = sheet1.cell(row=c, column=4).value
+                sheet = wb.create_sheet(sheet_name)
+                title = sheet1.cell(row=c, column=3).value
+                column_name = sheet1.cell(row=c, column=5).value
+                query = queries[sheet_name]
+                create_sheet_contents(sheet, filename, title,
+                                      sheet_name, column_name, query)
+            except:
+                pass
 
 
 if __name__ == "__main__":
@@ -67,10 +68,11 @@ if __name__ == "__main__":
         # permission deny
         try:
             wb.save(xlsx_name)
+            sleep(0.5)
+            print("==========================================")
+            print("보고서가 저장되었습니다.")
         except PermissionError:
-            print("파일을 닫고 재실행해주세요.")
-        sleep(0.5)
-        print("보고서가 저장되었습니다.")
+            print("보고서 파일을 닫고 프로그램을 재실행해주세요.")
 
     except FileNotFoundError:
-        print('파일이 존재하지 않습니다.')
+        print('엑셀 파일이 존재하지 않습니다.')
