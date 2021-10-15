@@ -81,12 +81,16 @@ def get_zip_code_query(column):
     return query
 
 
-def query_generator():
+def get_filename():
     global filename
     global queries
     queries = []
+    print("입력을 마치려면 ctrl+c를 눌러주세요.")
+    print("=========================================")
+    sleep(1)
     # 파일 이름: 한번만 입력
     print("파일 이름을 입력하세요...")
+
     try:
         filename = input()
     except KeyboardInterrupt:
@@ -95,7 +99,10 @@ def query_generator():
     # 잘못 입력한 경우
     except:
         print("잘못 입력")
+    return filename
 
+
+def query_generator():
     try:
         while True:
             #컬럼, 데이터타입
@@ -114,13 +121,13 @@ def query_generator():
                     query = get_percent_query(column)
                 elif data_type == "전화번호" or data_type == "전화 번호":
                     query = get_phone_number_query(column)
-                elif data_type == "사업자번호":
+                elif data_type == "사업자번호" or data_type == "사업자 번호":
                     query = get_business_number_query(column)
                 elif data_type == "이메일":
                     query = get_email_query(column)
                 elif data_type == "여부":
                     query = get_whether_query(column)
-                elif data_type == "우편번호":
+                elif data_type == "우편번호" or data_type == "우편 번호":
                     query = get_zip_code_query(column)
                 else:
                     print("지정된 데이터 타입이 아닙니다.")
@@ -132,8 +139,8 @@ def query_generator():
             queries.append(query)
     except KeyboardInterrupt:
         print("==========================================")
-        print("프로그램을 종료합니다.")
-    return queries, filename
+        print("입력을 종료합니다.")
+    return queries
 
 
 def make_txt(filename):
@@ -142,14 +149,13 @@ def make_txt(filename):
     for query in queries:
         f.write(query+"\n")
     f.close()
+    sleep(0.5)
+    print("쿼리가 저장되었습니다.")
 
 
 if __name__ == "__main__":
     print("쿼리 생성기를 실행합니다.")
     sleep(0.5)
-    # 이부분 좀 고쳐야될거같은데
-    print("입력을 마치려면 ctrl+c를 눌러주세요.")
-    print("=========================================")
-    sleep(1)
+    get_filename()
     query_generator()
     make_txt(filename)

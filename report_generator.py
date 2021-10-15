@@ -1,11 +1,10 @@
 import openpyxl
-from query_generator import query_generator, make_txt
+from query_generator import query_generator, make_txt, get_filename
 from openpyxl.styles import Font, PatternFill, Alignment
 from time import sleep
 
 
 def create_sheet_contents(sheet, file_name, title, sheet_name, column_name, query):
-    # 가운데 정렬, 배경색:#F1F1F1->index:27
     # setting styles
     ft = Font(name="휴먼명조", size=9, bold=True)
     color = PatternFill(
@@ -49,19 +48,29 @@ def create_sheet(filename, queries):
 
 if __name__ == "__main__":
     print("보고서 생성기를 실행합니다...")
-    queries, filename = query_generator()
+    sleep(0.5)
+    filename = get_filename()
     xlsx_name = '{}_SQL진단결과보고서.xlsx'.format(filename)
     # 이름 틀릴 경우
-    wb = openpyxl.load_workbook(xlsx_name)
-    sheet1 = wb.active
-    print(sheet1)
-    col = sheet1['F']  # 값이 있는 것만 가져옴
-    print("생성된 쿼리를 저장하시겠습니까? y/n")
-    answer = input()
-    if answer == "y" or answer == "Y":
-        make_txt(filename)
-    create_sheet(filename, queries)
-    # save실패할 경우
-    wb.save(xlsx_name)
-    sleep(0.5)
-    print("보고서가 저장되었습니다.")
+    try:
+        wb = openpyxl.load_workbook(xlsx_name)
+        sheet1 = wb.active
+        # print(sheet1)
+        col = sheet1['F']
+        queries = query_generator()
+        print("생성된 쿼리를 저장하시겠습니까? y/n")
+        answer = input()
+        if answer == "y" or answer == "Y":
+            make_txt(filename)
+        create_sheet(filename, queries)
+        # save실패할 경우
+        # permission deny
+        try:
+            wb.save(xlsx_name)
+        except PermissionError:
+            print("파일을 닫고 재실행해주세요.")
+        sleep(0.5)
+        print("보고서가 저장되었습니다.")
+
+    except FileNotFoundError:
+        print('파일이 존재하지 않습니다.')
