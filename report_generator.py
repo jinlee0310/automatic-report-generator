@@ -7,8 +7,6 @@ from time import sleep
 def create_sheet_contents(sheet, file_name, title, sheet_name, column_name, query):
     # setting styles
     ft = Font(name="휴먼명조", size=9, bold=True)
-    color = PatternFill(
-        patternType=None, start_color="F1F1F1", end_color="F1F1F1")
     alignment = Alignment(horizontal="center", vertical="center")
 
     # A column
@@ -21,7 +19,6 @@ def create_sheet_contents(sheet, file_name, title, sheet_name, column_name, quer
 
     for a in range(len(sheet['A'])):
         sheet.cell(row=a+1, column=1).font = ft
-        sheet.cell(row=a+1, column=1).fill = color
         sheet.cell(row=a+1, column=1).alignment = alignment
 
     # B column
@@ -64,15 +61,19 @@ if __name__ == "__main__":
         if answer == "y" or answer == "Y":
             make_txt(filename)
         create_sheet(filename, queries)
-        # save실패할 경우
-        # permission deny
+
+        # 보고서 저장
         try:
             wb.save(xlsx_name)
             sleep(0.5)
             print("==========================================")
             print("보고서가 저장되었습니다.")
+        # permission deny
         except PermissionError:
             print("보고서 파일을 닫고 프로그램을 재실행해주세요.")
+        # save실패할 경우
+        except:
+            print("보고서 저장에 실패하였습니다.")
 
     except FileNotFoundError:
         print('엑셀 파일이 존재하지 않습니다.')

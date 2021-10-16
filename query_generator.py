@@ -10,29 +10,70 @@ def get_number_query(column):
 
 
 def get_date_query(column, form):
-    # 일단 시간 생략
-    if form == "YYYY-MM-DD":
-        query = "SELECT {} FROM C##OPENDATA.{} WHERE {}<>0 AND NOT REGEXP_LIKE({},'^(19|20)\d{}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[0-1])$');".format(
-            column, filename, '"index"', column, 2)
-        # queries.append(query)
-    elif form == "YYYY":
+    if form == "YYYY" or form == "년도" or form == "연도":
         query = "SELECT {} FROM C##OPENDATA.{} WHERE {}<>0 AND NOT REGEXP_LIKE({},'^(19|20)\d{}$');".format(
             column, filename, '"index"', column, 2)
-        # queries.append(query)
-    elif form == "MM":
-        query = "SELECT {} FROM C##OPENDATA.{} WHERE {}<>0 AND NOT REGEXP_LIKE({},'^(0[1-9]|1[012])$');".format(
-            column, filename, '"index"', column)
-    elif form == "DD":
-        query = "SELECT {} FROM C##OPENDATA.{} WHERE {}<>0 AND NOT REGEXP_LIKE({},'^(0[1-9]|[12][0-9]|3[0-1])$');".format(
-            column, filename, '"index"', column)
-    elif form == "YYYY-MM":
+
+    elif form == "YYYY-MM" or form == "년월":
         query = "SELECT {} FROM C##OPENDATA.{} WHERE {}<>0 AND NOT REGEXP_LIKE({},'^(19|20)\d{}-(0[1-9]|1[012])$');".format(
             column, filename, '"index"', column, 2)
-    elif form == "MM-DD":
+
+    elif form == "YYYY-MM-DD" or form == "년월일":
+        query = "SELECT {} FROM C##OPENDATA.{} WHERE {}<>0 AND NOT REGEXP_LIKE({},'^(19|20)\d{}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[0-1])$');".format(
+            column, filename, '"index"', column, 2)
+
+    elif form == "YYYY-MM-DD HH24" or form == "년월일 시" or form == "년월일시":
+        query = "SELECT {} FROM C##OPENDATA.{} WHERE {}<>0 AND NOT REGEXP_LIKE({},'^(19|20)\d{}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[0-1])])\s([1-9]|[01][0-9]|2[0-4])$');".format(
+            column, filename, '"index"', column, 2)
+
+    elif form == "YYYY-MM-DD HH24:MI" or form == "년월일 시분" or form == "년월일시분":
+        query = "SELECT {} FROM C##OPENDATA.{} WHERE {}<>0 AND NOT REGEXP_LIKE({},'^(19|20)\d{}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[0-1])])])\s([1-9]|[01][0-9]|2[0-4])[:]([0-5][0-9])$');".format(
+            column, filename, '"index"', column, 2)
+
+    elif form == "YYYY-MM-DD HH24:MI:SS" or form == "년월일 시분초" or form == "년월일시분초":
+        query = "SELECT {} FROM C##OPENDATA.{} WHERE {}<>0 AND NOT REGEXP_LIKE({},'^(19|20)\d{}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[0-1])])])\s([1-9]|[01][0-9]|2[0-4])[:]([0-5][0-9])[:]([0-5][0-9])$');".format(
+            column, filename, '"index"', column, 2)
+
+    elif form == "MM" or form == "월":
+        query = "SELECT {} FROM C##OPENDATA.{} WHERE {}<>0 AND NOT REGEXP_LIKE({},'^(0[1-9]|1[012])$');".format(
+            column, filename, '"index"', column)
+
+    elif form == "MM-DD" or form == "월일":
         query = "SELECT {} FROM C##OPENDATA.{} WHERE {}<>0 AND NOT REGEXP_LIKE({},'^(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[0-1])$');".format(
             column, filename, '"index"', column)
 
-    return query
+    elif form == "MM-DD HH24:MI" or form == "월일 시분" or form == "월일시분":
+        query = "SELECT {} FROM C##OPENDATA.{} WHERE {}<>0 AND NOT REGEXP_LIKE({},'^(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[0-1])\s([1-9]|[01][0-9]|2[0-4])[:]([0-5][0-9])$');".format(
+            column, filename, '"index"', column)
+
+    elif form == "DD" or form == "일":
+        query = "SELECT {} FROM C##OPENDATA.{} WHERE {}<>0 AND NOT REGEXP_LIKE({},'^(0[1-9]|[12][0-9]|3[0-1])$');".format(
+            column, filename, '"index"', column)
+
+    elif form == "HH24" or form == "시":
+        query = "SELECT {} FROM C##OPENDATA.{} WHERE {}<>0 AND NOT REGEXP_LIKE({},'^([1-9]|[01][0-9]|2[0-4])$');".format(
+            column, filename, '"index"', column)
+    elif form == "HH24:MI" or form == "시분":
+        query = "SELECT {} FROM C##OPENDATA.{} WHERE {}<>0 AND NOT REGEXP_LIKE({},'^([1-9]|[01][0-9]|2[0-4])[:]([0-5][0-9])$');".format(
+            column, filename, '"index"', column)
+    elif form == "HH24:MI:SS" or form == "시분초":
+        query = "SELECT {} FROM C##OPENDATA.{} WHERE {}<>0 AND NOT REGEXP_LIKE({},'^([1-9]|[01][0-9]|2[0-4])[:]([0-5][0-9])[:]([0-5][0-9])$');".format(
+            column, filename, '"index"', column)
+    elif form == "MI" or form == "분":
+        query = "SELECT {} FROM C##OPENDATA.{} WHERE {}<>0 AND NOT REGEXP_LIKE({},'^([0-5][0-9])$');".format(
+            column, filename, '"index"', column)
+    elif form == "MI:SS" or form == "분초":
+        query = "SELECT {} FROM C##OPENDATA.{} WHERE {}<>0 AND NOT REGEXP_LIKE({},'^([0-5][0-9])[:]([0-5][0-9])$');".format(
+            column, filename, '"index"', column)
+    elif form == "SS" or form == "초":
+        query = "SELECT {} FROM C##OPENDATA.{} WHERE {}<>0 AND NOT REGEXP_LIKE({},'^([0-5][0-9])$');".format(
+            column, filename, '"index"', column)
+    else:
+        print("형식이 올바르지 않습니다.")
+    try:
+        return query
+    except UnboundLocalError:
+        pass
 
 
 def get_price_query(column):
@@ -143,7 +184,11 @@ def query_generator():
                     else:
                         print("지정된 데이터 타입이 아닙니다.")
                     try:
-                        queries[column] = query
+                        if column in queries.keys():
+                            print("중복 입력 하였습니다.")
+                        else:
+                            if query is not None:
+                                queries[column] = query
                     except UnboundLocalError:
                         pass
                 else:
@@ -164,7 +209,8 @@ def make_txt(filename):
     txt_filename = '{} SQL 쿼리.txt'.format(filename)
     f = open(txt_filename, 'w')
     for query in queries.values():
-        f.write(query+"\n")
+        if query is not None:
+            f.write(query+"\n")
     f.close()
     sleep(0.5)
     print("쿼리가 저장되었습니다.")
