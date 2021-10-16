@@ -217,7 +217,7 @@ def make_txt(filename):
 
 
 if __name__ == "__main__":
-    print("쿼리 생성기를 실행합니다.")
+    print("쿼리 생성기를 실행합니다...")
     sleep(0.5)
     get_filename()
     query_generator()
