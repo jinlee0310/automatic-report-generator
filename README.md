@@ -38,7 +38,7 @@ python -V #파이썬 설치 버전 확인 명령어
 2. 바탕화면에 폴더를 생성하고 git bash에 아래와 같이 입력합니다. foldername은 사용자가 설정한 폴더 이름입니다.
 
 ```shell
-cd/Desktop/foldername
+cd Desktop/foldername
 ```
 
 3. git bash에 아래와 같이 입력합니다.(어려운 과정을 거치는 이유는 추후 파일 수정이 있을 수 있기 때문)
@@ -72,8 +72,7 @@ git pull origin main #파일 다운로드
    ex). C1 전화번호<br>
    데이터타입이 날짜라면 형식을 추가로 입력해주어야 합니다. 입력 형식은 SQL가이드 PPT 20p를 참고해주세요.(표준형식 or 비고와 같이 입력)
 
-   > 예시<br>
-   > ![입력형식](https://user-images.githubusercontent.com/59614918/137631719-7fe996c2-7da7-4d36-8ec5-1cbb4e444bba.JPG)
+   > 예시<br> > ![입력형식](https://user-images.githubusercontent.com/59614918/137631719-7fe996c2-7da7-4d36-8ec5-1cbb4e444bba.JPG)
 
 5. 입력이 끝났다면 ctrl+c를 누릅니다.
 6. 폴더에 파일이름 SQL 쿼리.txt 파일이 생성됩니다.
@@ -92,7 +91,7 @@ git pull origin main #파일 다운로드
 6. 보고서 생성기를 실행합니다.
 
 ```shell
-pip install -r requirements
+pip install -r requirements #필요한 라이브러리 설치
 python report_generator.py #보고서 생성기 실행
 ```
 
