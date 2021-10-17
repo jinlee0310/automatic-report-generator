@@ -183,6 +183,7 @@ def query_generator():
                         query = get_alpha_query(column)
                     else:
                         print("지정된 데이터 타입이 아닙니다.")
+                        continue
                     try:
                         if column in queries.keys():
                             print("중복 입력 하였습니다.")
