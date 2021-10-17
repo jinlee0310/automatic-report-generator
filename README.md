@@ -72,7 +72,7 @@ git pull origin main #파일 다운로드
    ex). C1 전화번호<br>
    데이터타입이 날짜라면 형식을 추가로 입력해주어야 합니다. 입력 형식은 SQL가이드 PPT 20p를 참고해주세요.(표준형식 or 비고와 같이 입력)
 
-   > 예시
+   > 예시<br>
    > ![입력형식](https://user-images.githubusercontent.com/59614918/137631719-7fe996c2-7da7-4d36-8ec5-1cbb4e444bba.JPG)
 
 5. 입력이 끝났다면 ctrl+c를 누릅니다.
