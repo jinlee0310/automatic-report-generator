@@ -7,7 +7,7 @@
 - python3.6 이상 버전이 필요합니다.
 - git 설치가 필요합니다.
 
-- 🙋‍♂️깃과 파이썬이 뭔지 안다->깃과 파이썬 설치 후<a href="https://github.com/hyojinLee-git/automatic-report-generator#setting-git">여기</a>로 가세요
+- 🙋‍♂️깃과 파이썬이 뭔지 안다->깃과 파이썬 설치 후 <a href="https://github.com/hyojinLee-git/automatic-report-generator#setting-git">여기</a>로 가세요
 - 🙋‍♂️깃과 파이썬이 뭔지 모른다-><a href="https://github.com/hyojinLee-git/automatic-report-generator#setting">여기</a>
 
 ## Setting
@@ -89,7 +89,7 @@ git clone   #파일 다운로드
 6. 보고서 생성기를 실행합니다.
 
 ```shell
-pip install -r requirements #필요한 라이브러리 설치
+pip install -r requirements.txt #필요한 라이브러리 설치
 python report_generator.py #보고서 생성기 실행
 ```
 
