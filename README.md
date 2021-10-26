@@ -41,12 +41,10 @@ python -V #파이썬 설치 버전 확인 명령어
 cd Desktop/foldername
 ```
 
-3. git bash에 아래와 같이 입력합니다.(어려운 과정을 거치는 이유는 추후 파일 수정이 있을 수 있기 때문)
+3. git bash에 아래와 같이 입력합니다.
 
 ```shell
-git init #.git 폴더 생성
-git remote add origin https://github.com/hyojinLee-git/automatic-report-generator.git #원격 저장소 연결
-git pull origin main #파일 다운로드
+git clone   #파일 다운로드
 ```
 
 4. 정상적으로 완료되었다면 폴더에 automatic-report-generator가 설치되어 있습니다.
