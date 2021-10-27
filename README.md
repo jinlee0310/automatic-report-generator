@@ -44,7 +44,7 @@ cd Desktop/foldername
 3. git bash에 아래와 같이 입력합니다.
 
 ```shell
-git clone   #파일 다운로드
+git clone https://github.com/hyojinLee-git/automatic-report-generator.git   #파일 다운로드
 ```
 
 4. 정상적으로 완료되었다면 폴더에 automatic-report-generator가 설치되어 있습니다.
