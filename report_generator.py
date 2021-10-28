@@ -53,6 +53,7 @@ if __name__ == "__main__":
     try:
         wb = openpyxl.load_workbook(xlsx_name)
         sheet1 = wb.active
+        sheet1.title = "01.컬럼목록"
         # print(sheet1)
         col = sheet1['F']
         queries = query_generator()
