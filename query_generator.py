@@ -131,13 +131,14 @@ def get_alpha_query(column):
 
 
 def get_count_query():
-    print(queries)
-    query = "SELECT"
+    # print(queries)
+    query = "SELECT "
     for key in queries.keys():
         query += "COUNT({}),".format(key)
-    query += ""
-    # query="SELECT COUNT({}) FROM C##OPENDATA.{} WHERE {}<>0".format(filename,'"index"')
-    return
+    query = query[:-1]
+    query += " FROM C##OPENDATA.{} WHERE {}<>0".format(filename, '"index"')
+
+    return query
 
 
 def get_filename():
@@ -222,7 +223,8 @@ def make_txt(filename):
     for query in queries.values():
         if query is not None:
             f.write(query+"\n")
-    # f.write(get_count_query())
+    count_query = get_count_query()
+    f.write(count_query+"\n")
     f.close()
     sleep(0.5)
     print("쿼리가 저장되었습니다.")
