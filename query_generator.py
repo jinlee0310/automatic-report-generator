@@ -12,27 +12,27 @@ def get_number_query(column):
 def get_date_query(column, form):
     if form == "YYYY" or form == "년도" or form == "연도":
         query = "SELECT {} FROM C##OPENDATA.{} WHERE {}<>0 AND NOT REGEXP_LIKE({},'^(19|20)\d{}$');".format(
-            column, filename, '"index"', column, 2)
+            column, filename, '"index"', column, '{2}')
 
     elif form == "YYYY-MM" or form == "년월":
         query = "SELECT {} FROM C##OPENDATA.{} WHERE {}<>0 AND NOT REGEXP_LIKE({},'^(19|20)\d{}-(0[1-9]|1[012])$');".format(
-            column, filename, '"index"', column, 2)
+            column, filename, '"index"', column, '{2}')
 
     elif form == "YYYY-MM-DD" or form == "년월일":
         query = "SELECT {} FROM C##OPENDATA.{} WHERE {}<>0 AND NOT REGEXP_LIKE({},'^(19|20)\d{}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[0-1])$');".format(
-            column, filename, '"index"', column, 2)
+            column, filename, '"index"', column, '{2}')
 
     elif form == "YYYY-MM-DD HH24" or form == "년월일 시" or form == "년월일시":
         query = "SELECT {} FROM C##OPENDATA.{} WHERE {}<>0 AND NOT REGEXP_LIKE({},'^(19|20)\d{}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[0-1])])\s([1-9]|[01][0-9]|2[0-4])$');".format(
-            column, filename, '"index"', column, 2)
+            column, filename, '"index"', column, '{2}')
 
     elif form == "YYYY-MM-DD HH24:MI" or form == "년월일 시분" or form == "년월일시분":
         query = "SELECT {} FROM C##OPENDATA.{} WHERE {}<>0 AND NOT REGEXP_LIKE({},'^(19|20)\d{}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[0-1])])])\s([1-9]|[01][0-9]|2[0-4])[:]([0-5][0-9])$');".format(
-            column, filename, '"index"', column, 2)
+            column, filename, '"index"', column, '{2}')
 
     elif form == "YYYY-MM-DD HH24:MI:SS" or form == "년월일 시분초" or form == "년월일시분초":
         query = "SELECT {} FROM C##OPENDATA.{} WHERE {}<>0 AND NOT REGEXP_LIKE({},'^(19|20)\d{}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[0-1])])])\s([1-9]|[01][0-9]|2[0-4])[:]([0-5][0-9])[:]([0-5][0-9])$');".format(
-            column, filename, '"index"', column, 2)
+            column, filename, '"index"', column, '{2}')
 
     elif form == "MM" or form == "월":
         query = "SELECT {} FROM C##OPENDATA.{} WHERE {}<>0 AND NOT REGEXP_LIKE({},'^(0[1-9]|1[012])$');".format(
@@ -92,14 +92,14 @@ def get_percent_query(column):
 
 def get_phone_number_query(column):
     query = "SELECT {} FROM C##OPENDATA.{} WHERE {}<>0 AND NOT REGEXP_LIKE({},'^[0-9]{}-[0-9]{}-[0-9]{}$');".format(
-        column, filename, '"index"', column, "2,3", "3,4", 4)
+        column, filename, '"index"', column, "{2,3}", "{3,4}", '{4}')
     # queries.append(query)
     return query
 
 
 def get_business_number_query(column):
     query = "SELECT {} FROM C##OPENDATA.{} WHERE {}<>0 AND NOT REGEXP_LIKE({},'^[0-9]{}-[0-9]{}-[0-9]{}$');".format(
-        column, filename, '"index"', column, 3, 2, 5)
+        column, filename, '"index"', column, '{3}', '{2}', '{5}')
     # queries.append(query)
     return query
 
@@ -112,7 +112,7 @@ def get_email_query(column):
 
 
 def get_whether_query(column):
-    query = "SELECT {} FROM C##OPENDATA.{} WHERE {}<>0 AND UPPER({}) not in ('Y', 'N‘ , ‘1’ ,’0’ );".format(
+    query = "SELECT {} FROM C##OPENDATA.{} WHERE {}<>0 AND UPPER({}) not in ('Y', 'N' , '1' ,'0' );".format(
         column, filename, '"index"', column)
     # queries.append(query)
     return query
@@ -120,7 +120,7 @@ def get_whether_query(column):
 
 def get_zip_code_query(column):
     query = "SELECT {} FROM C##OPENDATA.{} WHERE {}<>0 AND NOT REGEXP_LIKE({},'^[0-9]{}$');".format(
-        column, filename, '"index"', column, 5)
+        column, filename, '"index"', column, '{5}')
     return query
 
 
@@ -128,6 +128,16 @@ def get_alpha_query(column):
     query = "SELECT {} FROM C##OPENDATA.{} WHERE {}<>0 AND NOT REGEXP_LIKE({},'[[:alpha:]]');".format(
         column, filename, '"index"', column)
     return query
+
+
+def get_count_query():
+    print(queries)
+    query = "SELECT"
+    for key in queries.keys():
+        query += "COUNT({}),".format(key)
+    query += ""
+    # query="SELECT COUNT({}) FROM C##OPENDATA.{} WHERE {}<>0".format(filename,'"index"')
+    return
 
 
 def get_filename():
@@ -212,6 +222,7 @@ def make_txt(filename):
     for query in queries.values():
         if query is not None:
             f.write(query+"\n")
+    # f.write(get_count_query())
     f.close()
     sleep(0.5)
     print("쿼리가 저장되었습니다.")
